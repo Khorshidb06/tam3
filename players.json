@@ -1,0 +1,38 @@
+[
+{
+	securityQuest: {
+		class: java.lang.String
+		value: What was the first video game you played?
+	}
+	password: {
+		class: java.lang.String
+		value: ""
+	}
+	securityAns: {
+		class: java.lang.String
+		value: ""
+	}
+	userName: {
+		class: java.lang.String
+		value: Guest
+	}
+}
+{
+	securityQuest: {
+		class: java.lang.String
+		value: What was the first video game you played?
+	}
+	password: {
+		class: java.lang.String
+		value: 22@@SSSSDdd
+	}
+	securityAns: {
+		class: java.lang.String
+		value: ""
+	}
+	userName: {
+		class: java.lang.String
+		value: salam
+	}
+}
+]

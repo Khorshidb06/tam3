@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EnemyController {
     private PlayerController playerController;
@@ -72,18 +73,27 @@ public class EnemyController {
             enemy.getSprite().draw(Main.getBatch());
         }
 
+        Random random=new Random();
         Iterator<Enemy> iterator = eyeBats.iterator();
         while (iterator.hasNext()) {
+            int speed=100;
+            int rand=random.nextInt(10);
             Enemy enemy = iterator.next();
 
-            idleAnimationEnemy(enemy, GameAssetManager.getGameAssetManager().getEyeBatEnemy());
+            if (enemy.getEnemyHealth()>50 && rand==5){
+                speed=300;
+            }
+            if (enemy.getEnemyHealth()>50){
+                idleAnimationEnemy(enemy,GameAssetManager.getGameAssetManager().getBoss());
+            }
+            else idleAnimationEnemy(enemy, GameAssetManager.getGameAssetManager().getEyeBatEnemy());
 
             float dx = player.getPosX() - enemy.getPosX();
             float dy = player.getPosY() - enemy.getPosY();
             Vector2 direction = new Vector2(dx, dy).nor();
 
-            enemy.setPosX(enemy.getPosX() + direction.x * 100 * delta);
-            enemy.setPosY(enemy.getPosY() + direction.y * 100 * delta);
+            enemy.setPosX(enemy.getPosX() + direction.x * speed * delta);
+            enemy.setPosY(enemy.getPosY() + direction.y * speed * delta);
 
             float drawX = screenCenterX - (enemy.getPosX() - player.getPosX());
             float drawY = screenCenterY - (enemy.getPosY() - player.getPosY());

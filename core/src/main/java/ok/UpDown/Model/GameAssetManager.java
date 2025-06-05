@@ -52,48 +52,85 @@ public class GameAssetManager {
     private final Animation<Texture> character4_idle_frames = new Animation<>(0.1f, character4_idle0_tex, character4_idle1_tex, character4_idle2_tex, character4_idle3_tex, character4_idle4_tex, character4_idle5_tex);
     private final Animation<Texture> character5_idle_frames = new Animation<>(0.1f, character5_idle0_tex, character5_idle1_tex, character5_idle2_tex, character5_idle3_tex, character5_idle4_tex, character5_idle5_tex);
 
+    private final Texture char1_run0 = new Texture("Images_grouped_1/Sprite/Run/Run_0 #8756.png");
+    private final Texture char1_run1 = new Texture("Images_grouped_1/Sprite/Run/Run_1 #8772.png");
+    private final Texture char1_run2 = new Texture("Images_grouped_1/Sprite/Run/Run_2.png");
+    private final Texture char1_run3 = new Texture("Images_grouped_1/Sprite/Run/Run_3.png");
 
-    private final Texture Tree_Monster0=new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_0.png");
-    private final Texture Tree_Monster1=new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_1.png");
-    private final Texture Tree_Monster2=new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_2.png");
-    private final Animation<Texture> Tree_Monster=new Animation<>(0.3f, Tree_Monster0,Tree_Monster1,Tree_Monster2);
+    private final Texture char2_run0 = new Texture("ssss/Dasher/run/Run_0 #8757.png");
+    private final Texture char2_run1 = new Texture("ssss/Dasher/run/Run_1 #8773.png");
+    private final Texture char2_run2 = new Texture("ssss/Dasher/run/Run_2 #8281.png");
+    private final Texture char2_run3 = new Texture("ssss/Dasher/run/Run_3 #8344.png");
+    private final Texture char3_run0 = new Texture("ssss/Diamond/run/Run_0 #8760.png");
+    private final Texture char3_run1 = new Texture("ssss/Diamond/run/Run_1 #8776.png");
+    private final Texture char3_run2 = new Texture("ssss/Diamond/run/Run_2 #8284.png");
+    private final Texture char3_run3 = new Texture("ssss/Diamond/run/Run_3 #8347.png");
+    private final Texture char4_run0 = new Texture("ssss/Lilith/run/Run_0 #8765.png");
+    private final Texture char4_run1 = new Texture("ssss/Lilith/run/Run_1 #8781.png");
+    private final Texture char4_run2 = new Texture("ssss/Lilith/run/Run_2 #8289.png");
+    private final Texture char4_run3 = new Texture("ssss/Lilith/run/Run_3 #8352.png");
+    private final Texture char5_run0 = new Texture("ssss/Scarlet/run/Run_0 #8759.png");
+    private final Texture char5_run1 = new Texture("ssss/Scarlet/run/Run_1 #8775.png");
+    private final Texture char5_run2 = new Texture("ssss/Scarlet/run/Run_2 #8283.png");
+    private final Texture char5_run3 = new Texture("ssss/Scarlet/run/Run_3 #8346.png");
 
-    private final Texture Tentacle_Monster0=new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_0.png");
-    private final Texture Tentacle_Monster1=new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_1.png");
-    private final Texture Tentacle_Monster2=new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_2.png");
-    private final Texture Tentacle_Monster3=new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_3.png");
-    private final Animation<Texture> TentacleEnemy=new Animation<>(0.2f,Tentacle_Monster0,Tentacle_Monster1,Tentacle_Monster2,Tentacle_Monster3);
+    private final Animation<Texture> char1Run = new Animation<>(0.2f, char1_run0, char1_run1, char1_run2, char1_run3);
+    private final Animation<Texture> char2Run = new Animation<>(0.2f, char2_run0, char2_run1, char2_run2, char2_run3);
+    private final Animation<Texture> char3Run = new Animation<>(0.2f, char3_run0, char3_run1, char3_run2, char3_run3);
+    private final Animation<Texture> char4Run = new Animation<>(0.2f, char4_run0, char4_run1, char4_run2, char4_run3);
+    private final Animation<Texture> char5Run = new Animation<>(0.2f, char5_run0, char5_run1, char5_run2, char5_run3);
 
-    private final Texture eyeBat_Monster0= new Texture("Images_grouped_1/Sprite/T/T_EyeBat_0.png");
-    private final Texture eyeBat_Monster1= new Texture("Images_grouped_1/Sprite/T/T_EyeBat_1.png");
-    private final Texture eyeBat_Monster2= new Texture("Images_grouped_1/Sprite/T/T_EyeBat_2.png");
-    private final Texture eyeBat_Monster3= new Texture("Images_grouped_1/Sprite/T/T_EyeBat_3.png");
-    private final Animation<Texture> EyeBatEnemy= new Animation<>(0.2f, eyeBat_Monster0,eyeBat_Monster1,eyeBat_Monster2,eyeBat_Monster3);
 
-    private final Texture abbyPortrait=new Texture("Images_grouped_1/Sprite/T/T_Abby_Portrait.png");
-    private final Texture dasherPortrait=new Texture("Images_grouped_1/Sprite/T/T_Dasher_Portrait.png");
-    private final Texture lilithPortrait=new Texture("Images_grouped_1/Sprite/T/T_Lilith_Portrait.png");
-    private final Texture diamondPortrait=new Texture("Images_grouped_1/Sprite/T/T_Diamond_Portrait.png");
-    private final Texture lunaPortrait=new Texture("Images_grouped_1/Sprite/T/T_Luna_Portrait.png");
-    private final Texture ravenPortrait=new Texture("Images_grouped_1/Sprite/T/T_Raven_Portrait.png");
-    private final Texture scarlettPortrait=new Texture("Images_grouped_1/Sprite/T/T_Scarlett_Portrait.png");
-    private final Texture shanaPortrait=new Texture("Images_grouped_1/Sprite/T/T_Shana_Portrait.png");
+    private final Texture Tree_Monster0 = new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_0.png");
+    private final Texture Tree_Monster1 = new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_1.png");
+    private final Texture Tree_Monster2 = new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_2.png");
+    private final Animation<Texture> Tree_Monster = new Animation<>(0.3f, Tree_Monster0, Tree_Monster1, Tree_Monster2);
 
-    private final Texture explosion0=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_0.png");
-    private final Texture explosion1=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_1.png");
-    private final Texture explosion2=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_2.png");
-    private final Texture explosion3=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_3.png");
-    private final Texture explosion4=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_4.png");
-    private final Animation<Texture> explosion=new Animation<>(0.2f, explosion0, explosion1,explosion2,explosion3,explosion4);
+    private final Texture Tentacle_Monster0 = new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_0.png");
+    private final Texture Tentacle_Monster1 = new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_1.png");
+    private final Texture Tentacle_Monster2 = new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_2.png");
+    private final Texture Tentacle_Monster3 = new Texture("Images_grouped_1/Sprite/T/T_TentacleEnemy_3.png");
+    private final Animation<Texture> TentacleEnemy = new Animation<>(0.2f, Tentacle_Monster0, Tentacle_Monster1, Tentacle_Monster2, Tentacle_Monster3);
 
-    private final Texture hit0=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_0.png");
-    private final Texture hit1=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_1.png");
-    private final Texture hit2=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_2.png");
-    private final Animation<Texture> hit=new Animation<>(0.2f, hit0,hit1, hit2);
+    private final Texture eyeBat_Monster0 = new Texture("Images_grouped_1/Sprite/T/T_EyeBat_0.png");
+    private final Texture eyeBat_Monster1 = new Texture("Images_grouped_1/Sprite/T/T_EyeBat_1.png");
+    private final Texture eyeBat_Monster2 = new Texture("Images_grouped_1/Sprite/T/T_EyeBat_2.png");
+    private final Texture eyeBat_Monster3 = new Texture("Images_grouped_1/Sprite/T/T_EyeBat_3.png");
+    private final Animation<Texture> EyeBatEnemy = new Animation<>(0.2f, eyeBat_Monster0, eyeBat_Monster1, eyeBat_Monster2, eyeBat_Monster3);
 
-    private final Texture seed=new Texture("Images_grouped_1/Sprite/T/T_DevilDealPickup.png");
+    private final Texture abbyPortrait = new Texture("Images_grouped_1/Sprite/T/T_Abby_Portrait.png");
+    private final Texture dasherPortrait = new Texture("Images_grouped_1/Sprite/T/T_Dasher_Portrait.png");
+    private final Texture lilithPortrait = new Texture("Images_grouped_1/Sprite/T/T_Lilith_Portrait.png");
+    private final Texture diamondPortrait = new Texture("Images_grouped_1/Sprite/T/T_Diamond_Portrait.png");
+    private final Texture lunaPortrait = new Texture("Images_grouped_1/Sprite/T/T_Luna_Portrait.png");
+    private final Texture ravenPortrait = new Texture("Images_grouped_1/Sprite/T/T_Raven_Portrait.png");
+    private final Texture scarlettPortrait = new Texture("Images_grouped_1/Sprite/T/T_Scarlett_Portrait.png");
+    private final Texture shanaPortrait = new Texture("Images_grouped_1/Sprite/T/T_Shana_Portrait.png");
 
-    Texture glowTexture=new Texture("Images_grouped_1/Sprite/kindpng_7434455.png");
+    private final Texture explosion0 = new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_0.png");
+    private final Texture explosion1 = new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_1.png");
+    private final Texture explosion2 = new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_2.png");
+    private final Texture explosion3 = new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_3.png");
+    private final Texture explosion4 = new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_4.png");
+    private final Animation<Texture> explosion = new Animation<>(0.2f, explosion0, explosion1, explosion2, explosion3, explosion4);
+
+    private final Texture hit0 = new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_0.png");
+    private final Texture hit1 = new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_1.png");
+    private final Texture hit2 = new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_2.png");
+    private final Animation<Texture> hit = new Animation<>(0.2f, hit0, hit1, hit2);
+
+    private final Texture boss0 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_0.png");
+    private final Texture boss1 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_1.png");
+    private final Texture boss2 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_2.png");
+    private final Texture boss3 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_3.png");
+    private final Texture boss4 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_4.png");
+    private final Texture boss5 = new Texture("Images_grouped_1/Sprite/T/T_HasturBoss_5.png");
+    private final Animation<Texture> boss = new Animation<>(0.1f, boss0, boss1, boss2, boss3, boss4, boss5);
+
+
+    private final Texture seed = new Texture("Images_grouped_1/Sprite/T/T_DevilDealPickup.png");
+
+    Texture glowTexture = new Texture("Images_grouped_1/Sprite/kindpng_7434455.png");
 
     private final String smg = "smg/SMGStill.png";
     private final Texture smgTexture = new Texture(smg);
@@ -101,12 +138,12 @@ public class GameAssetManager {
     private final String bullet = "bullet.png";
 
 
-    private GameAssetManager(){
+    private GameAssetManager() {
 
     }
 
-    public static GameAssetManager getGameAssetManager(){
-        if (gameAssetManager == null){
+    public static GameAssetManager getGameAssetManager() {
+        if (gameAssetManager == null) {
             gameAssetManager = new GameAssetManager();
         }
         return gameAssetManager;
@@ -120,19 +157,19 @@ public class GameAssetManager {
         return character1_idle_frames;
     }
 
-    public String getCharacter1_idle0(){
+    public String getCharacter1_idle0() {
         return character1_idle0;
     }
 
-    public Texture getSmgTexture(){
+    public Texture getSmgTexture() {
         return smgTexture;
     }
 
-    public String getSmg(){
+    public String getSmg() {
         return smg;
     }
 
-    public String getBullet(){
+    public String getBullet() {
         return bullet;
     }
 
@@ -222,5 +259,33 @@ public class GameAssetManager {
 
     public Texture getGlowTexture() {
         return glowTexture;
+    }
+
+    public Animation<Texture> getBoss() {
+        return boss;
+    }
+
+    public Texture getBoss0() {
+        return boss0;
+    }
+
+    public Animation<Texture> getChar1Run() {
+        return char1Run;
+    }
+
+    public Animation<Texture> getChar2Run() {
+        return char2Run;
+    }
+
+    public Animation<Texture> getChar3Run() {
+        return char3Run;
+    }
+
+    public Animation<Texture> getChar4Run() {
+        return char4Run;
+    }
+
+    public Animation<Texture> getChar5Run() {
+        return char5Run;
     }
 }

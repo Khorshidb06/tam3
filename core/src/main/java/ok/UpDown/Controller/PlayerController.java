@@ -27,6 +27,7 @@ public class PlayerController {
     private EnemyController enemyController;
     private GameView view;
 
+
     public void setView(GameView view) {
         this.view = view;
     }
@@ -40,7 +41,7 @@ public class PlayerController {
 
         float delta = Gdx.graphics.getDeltaTime();
 
-        Main.getBatch().setColor(1f, 1f, 1f, 0.5f);
+        Main.getBatch().setColor(1f, 1f, 1f, 0.3f);
         Main.getBatch().draw(GameAssetManager.getGameAssetManager().getGlowTexture(), player.getPlayerSprite().getX()-100,
             player.getPlayerSprite().getY()-70, player.getPlayerSprite().getWidth()*5,
             player.getPlayerSprite().getHeight()*3);
@@ -102,6 +103,7 @@ public class PlayerController {
         int rand= random.nextInt(3);
         if (player.getXp()>=player.getLevel()*20){
             player.setLevel(player.getLevel()+1);
+            if (GameData.isSfx())Main.getMain().playN();
             player.setXp(0);
             if (rand==0){
                 player.getAbilities().put("vitality", player.getAbilities().get("vitality")+1);
@@ -125,17 +127,22 @@ public class PlayerController {
 
     }
     public void handlePlayerInput(){
+
         if (Gdx.input.isKeyPressed(Input.Keys.W)){
             player.setPosY(player.getPosY() - player.getSpeed());
+            RunAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)){
             player.setPosX(player.getPosX() - player.getSpeed());
+            RunAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)){
             player.setPosY(player.getPosY() + player.getSpeed());
+            RunAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
             player.setPosX(player.getPosX() + player.getSpeed());
+            RunAnimation();
             player.getPlayerSprite().flip(true, false);
         }
     }
@@ -169,6 +176,40 @@ public class PlayerController {
         }
 
         animation.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    public void RunAnimation(){
+        Animation<Texture> animation = getTextureAnimation();
+        player.getPlayerSprite().setRegion(animation.getKeyFrame(player.getTime()));
+
+        if (!animation.isAnimationFinished(player.getTime())) {
+            player.setTime(player.getTime() + Gdx.graphics.getDeltaTime());
+        }
+        else {
+            player.setTime(0);
+        }
+
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    private Animation<Texture> getTextureAnimation() {
+        Animation<Texture> animation=GameAssetManager.getGameAssetManager().getChar1Run();
+
+        Player player1= GameData.getLoggedInPlayer();
+
+        if (player1.getHero().equals("Dasher")) {
+            animation = GameAssetManager.getGameAssetManager().getChar2Run();
+        }
+        if (player1.getHero().equals("Diamond")) {
+            animation = GameAssetManager.getGameAssetManager().getChar3Run();
+        }
+        if (player1.getHero().equals("Lilith")) {
+            animation = GameAssetManager.getGameAssetManager().getChar4Run();
+        }
+        if (player1.getHero().equals("Scarlet")) {
+            animation = GameAssetManager.getGameAssetManager().getChar5Run();
+        }
+        return animation;
     }
 
     public Player getPlayer() {

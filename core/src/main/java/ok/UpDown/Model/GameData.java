@@ -10,7 +10,9 @@ public class GameData {
     private static Player loggedInPlayer;
     private static float time;
     private static boolean isFinished = false;
+    private static boolean boss=false;
     private static boolean isPaused=false;
+    private static boolean sfx=true;
     private static Stage popupStage = null;
     private static float passedTime = 0f;
     private static float lastSpawn = 0;
@@ -124,5 +126,21 @@ public class GameData {
 
     public static void setPopupStage(Stage popupStage) {
         GameData.popupStage = popupStage;
+    }
+
+    public static boolean isBoss() {
+        return boss;
+    }
+
+    public static void setBoss(boolean boss) {
+        GameData.boss = boss;
+    }
+
+    public static boolean isSfx() {
+        return sfx;
+    }
+
+    public static void setSfx(boolean sfx) {
+        GameData.sfx = sfx;
     }
 }

@@ -18,6 +18,8 @@ public class SettingController {
         if (view!=null){
             if (view.getReload().isChecked()) GameData.setAutoReload(true);
             else GameData.setAutoReload(false);
+            if (view.getSfx().isChecked())GameData.setSfx(true);
+            else GameData.setSfx(false);
             Main.getMain().getScreen().dispose();
             Main.getMain().setScreen(new MainMenu(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
         }

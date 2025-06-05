@@ -22,6 +22,10 @@ public class Enemy {
         this.enemyHealth=enemyHealth;
     }
 
+    public Texture getEnemyTex() {
+        return enemyTex;
+    }
+
     public Sprite getSprite() {
         return sprite;
     }
@@ -57,6 +61,7 @@ public class Enemy {
     public float getEnemyHealth() {
         return enemyHealth;
     }
+
 
     public void setEnemyHealth(float enemyHealth) {
         this.enemyHealth = enemyHealth;

@@ -47,6 +47,7 @@ public class WeaponController {
 
     public void handleWeaponShoot(int x, int y){
         if (weapon.getAmmo()>0){
+            if (GameData.isSfx())Main.getMain().playShot();
             for (int i=0; i<weapon.getWeaponTypes().getProjectile(); i++){
                 bullets.add(new Bullet(x, y, playerController.getPlayer().getPosY(),playerController.getPlayer().getPosX()));
             }
@@ -109,7 +110,10 @@ public class WeaponController {
                 }
             }
         }
-        if (c|a) player.setKill(player.getKill()+1);
+        if (c|a) {
+            if (GameData.isSfx())Main.getMain().playHit();
+            player.setKill(player.getKill()+1);
+        }
 
         return c|a;
     }

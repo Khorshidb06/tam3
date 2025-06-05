@@ -3,6 +3,7 @@ package ok.UpDown;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ok.UpDown.Controller.SignupController;
@@ -11,26 +12,35 @@ import ok.UpDown.Model.GameData;
 import ok.UpDown.Model.PlayerStorage;
 import ok.UpDown.View.SignUpMenu;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Main extends Game {
     private static Main main;
     private static SpriteBatch batch;
-    private float volume=0.5f;
+    private float volume = 0.5f;
     private Music backgroundMusic;
+    private Sound notif;
+    private Sound hit;
+    private Sound shot;
 
     @Override
     public void create() {
         main = this;
-        GameData.allPlayers=PlayerStorage.loadPlayers();
+        GameData.allPlayers = PlayerStorage.loadPlayers();
         batch = new SpriteBatch();
         Pixmap pixmap = new Pixmap(Gdx.files.internal("Images_grouped_1/Sprite/T/T_Cursor.png"));
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(pixmap, 0, 0));
         pixmap.dispose();
-        backgroundMusic=Gdx.audio.newMusic(Gdx.files.internal("music/Pirates of the Caribbean Metal.mp3"));
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music/Pirates of the Caribbean Metal.mp3"));
+        notif = Gdx.audio.newSound(Gdx.files.internal("music/notif.mp3"));
+        shot = Gdx.audio.newSound(Gdx.files.internal("music/gun.mp3"));
+        hit = Gdx.audio.newSound(Gdx.files.internal("music/hit.mp3"));
+
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(volume);
         backgroundMusic.play();
-        getMain().setScreen(new SignUpMenu( GameAssetManager.getGameAssetManager().getSkin(), new SignupController()));
+        getMain().setScreen(new SignUpMenu(GameAssetManager.getGameAssetManager().getSkin(), new SignupController()));
     }
 
     @Override
@@ -44,6 +54,9 @@ public class Main extends Game {
         if (backgroundMusic != null) {
             backgroundMusic.dispose();
         }
+        notif.dispose();
+        shot.dispose();
+        hit.dispose();
     }
 
     public static Main getMain() {
@@ -58,13 +71,22 @@ public class Main extends Game {
         return batch;
     }
 
+    public void playN(){
+        notif.play();
+    }
+    public void playHit(){
+        hit.play();
+    }
+    public void playShot(){
+        shot.play();
+    }
     public void changeMusic(String filePath) {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
             backgroundMusic.dispose();
         }
 
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music/"+filePath+".mp3"));
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("music/" + filePath + ".mp3"));
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(this.volume);
         backgroundMusic.play();

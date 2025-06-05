@@ -48,7 +48,9 @@ public class HintMenu implements Screen {
         cheatTable.add(new Label("Cheat Codes", skin, "default")).padBottom(10).row();
         cheatTable.add(new Label("- key I: adds player level", skin)).left().row();
         cheatTable.add(new Label("- key L: adds player HP", skin)).left().row();
-        cheatTable.add(new Label("- key T: reduces time of the game", skin)).left().row();
+        cheatTable.add(new Label("- key T: reduces 1 minute of the time", skin)).left().row();
+        cheatTable.add(new Label("- key B: go to boss fight", skin)).left().row();
+        cheatTable.add(new Label("- key X: increase XP by 5", skin)).left().row();
 
 
         Table controlTable = new Table();

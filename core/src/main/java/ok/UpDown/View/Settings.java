@@ -21,6 +21,8 @@ public class Settings implements Screen {
     private final SettingController controller;
     private final Label menuTitle;
     private final CheckBox reload;
+    private final CheckBox sfx;
+
     private Stage stage;
     private Slider volumeSlider;
     public Table table;
@@ -34,7 +36,8 @@ public class Settings implements Screen {
         volumeSlider = new Slider(0f, 1f, 0.01f, false, skin);
         volumeSlider.setValue(Main.getMain().getVolume());
         this.skin=skin;
-        this.reload=new CheckBox("Reload", skin);
+        this.reload=new CheckBox("AutoReload", skin);
+        this.sfx=new CheckBox("Play sfx", skin);
         this.chooseMusic = new SelectBox<>(skin);
         this.button = new TextButton("go back", skin);
         Array<String> menus = new Array<>();
@@ -56,8 +59,11 @@ public class Settings implements Screen {
         table.row().pad(10, 0, 10, 0);
         table.add(new Label("Volume", skin));
         table.row().pad(10, 0, 10, 0);
-        table.add(volumeSlider).width(400);
-        table.add(reload).width(300);
+        table.add(volumeSlider).width(400).row();
+        table.row().pad(10, 0, 10, 0);
+
+        table.add(reload).width(300).row();
+        table.add(sfx).width(300);
         volumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -126,5 +132,9 @@ public class Settings implements Screen {
 
     public CheckBox getReload() {
         return reload;
+    }
+
+    public CheckBox getSfx() {
+        return sfx;
     }
 }

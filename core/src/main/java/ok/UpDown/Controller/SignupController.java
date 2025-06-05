@@ -37,7 +37,7 @@ public class SignupController {
         Texture texture=chooseAvatar();
 
         for (Player player : GameData.allPlayers) {
-            if (player.getUserName().equals(username)) {
+            if (player.getUserName().equals(username) && !username.equals("Guest")) {
                 view.showDialog("", "Oops! Username already taken.", () -> {});
                 return;
             }
@@ -52,7 +52,7 @@ public class SignupController {
                ));
             });
 
-            Player newPlayer = new Player(username, password,0,0,securityQuest,securityAns, texture);
+            Player newPlayer = new Player(username, password,5,2,securityQuest,securityAns, texture);
             GameData.allPlayers.add(newPlayer);
             GameData.setLoggedInPlayer(newPlayer);
             PlayerStorage.savePlayers(GameData.allPlayers);

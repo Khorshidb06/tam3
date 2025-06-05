@@ -219,6 +219,10 @@ public class Player {
         return timeAlive;
     }
 
+    public void setAvatar(Texture avatar) {
+        this.avatar = avatar;
+    }
+
     public void setTimeAlive(float timeAlive) {
         this.timeAlive = timeAlive;
     }

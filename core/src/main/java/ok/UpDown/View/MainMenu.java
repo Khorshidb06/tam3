@@ -80,7 +80,7 @@ public class MainMenu implements Screen {
         table.row().pad(10, 0, 10, 0);
         table.add(playButton).width(150).colspan(2);
         table.row().pad(10, 0, 10, 0);
-        table.add(logout).width(150).colspan(2);
+        table.add(logout).width(200).colspan(2);
 
         playButton.addListener(new ClickListener() {
             @Override

@@ -41,6 +41,8 @@ public class GameView implements Screen, InputProcessor {
     private Label ability1;
     private Label ability2;
     private Label ability3;
+    private Label ability4;
+    private Label ability5;
     public ArrayList<HitEffect> hitEffects = new ArrayList<>();
     ProgressBar progressBar;
 
@@ -53,7 +55,6 @@ public class GameView implements Screen, InputProcessor {
     }
 
     private void createPauseMenu() {
-
         Table pauseTable = new Table();
         pauseTable.setFillParent(true);
         pauseTable.center();
@@ -62,19 +63,40 @@ public class GameView implements Screen, InputProcessor {
         TextButton resumeButton = new TextButton("Resume", skin);
         TextButton quitButton = new TextButton("Quit", skin);
 
+        Table playerInfoTable = new Table();
         nameLabel = new Label(player.getUserName(), skin);
         ability1 = new Label("Vitality: " + player.getAbilities().get("vitality"), skin);
         ability2 = new Label("Procrese: " + player.getAbilities().get("procrease"), skin);
         ability3 = new Label("Ammocrease: " + player.getAbilities().get("ammocrease"), skin);
+        ability4=new Label("Damager: 0", skin);
+        ability5=new Label("Speedy: 0", skin);
 
-        pauseTable.add(pauseLabel).pad(10).row();
-        pauseTable.add(ability1).pad(10).row();
-        pauseTable.add(ability2).pad(10).row();
-        pauseTable.add(ability3).pad(10).row();
-        pauseTable.row();
-        pauseTable.add(resumeButton).pad(10).width(200);
-        pauseTable.row();
-        pauseTable.add(quitButton).pad(10).width(200);
+        playerInfoTable.add(nameLabel).left().row();
+        playerInfoTable.add(ability1).left().row();
+        playerInfoTable.add(ability2).left().row();
+        playerInfoTable.add(ability3).left().row();
+        playerInfoTable.add(ability4).left().row();
+        playerInfoTable.add(ability5).left().row();
+
+
+        Table cheatTable = new Table();
+        cheatTable.top();
+        cheatTable.add(new Label("Cheat Codes", skin, "default")).padBottom(10).row();
+        cheatTable.add(new Label("- key I: adds player level", skin)).left().row();
+        cheatTable.add(new Label("- key L: adds player HP", skin)).left().row();
+        cheatTable.add(new Label("- key T: reduces 1 minute of the time", skin)).left().row();
+        cheatTable.add(new Label("- key B: go to boss fight", skin)).left().row();
+        cheatTable.add(new Label("- key X: increase XP by 5", skin)).left().row();
+
+
+        Table infoRowTable = new Table();
+        infoRowTable.add(playerInfoTable).pad(20).top();
+        infoRowTable.add(cheatTable).pad(20).top();
+
+        pauseTable.add(pauseLabel).colspan(2).pad(10).row();
+        pauseTable.add(infoRowTable).colspan(2).row();
+        pauseTable.add(resumeButton).colspan(2).pad(10).width(200).row();
+        pauseTable.add(quitButton).colspan(2).pad(10).width(200);
 
         pauseStage.addActor(pauseTable);
 
@@ -92,10 +114,10 @@ public class GameView implements Screen, InputProcessor {
                 PlayerStorage.savePlayers(GameData.allPlayers);
                 GameData.setIsFinished(true);
                 endMode = new Label("Dead", skin);
-
             }
         });
     }
+
 
     private void createEndMenu() {
 
@@ -256,6 +278,12 @@ public class GameView implements Screen, InputProcessor {
                 GameData.getAllTentacles().add(new Enemy(-randX + 800, -randY + 200, GameAssetManager.getGameAssetManager().getTentacle_Monster0(), 25));
             }
         }
+        if (GameData.getPassedTime() > GameData.getTime() / 2 && !GameData.isBoss()){
+            GameData.setBoss(true);
+            int randY = random.nextInt(2000);
+            int randX = random.nextInt(3000);
+            GameData.getAllEyeBat().add(new Enemy(-randX + 800, -randY + 200, GameAssetManager.getGameAssetManager().getBoss0(), 400));
+        }
 
         if (GameData.getPassedTime() > GameData.getTime() / 4) {
             if (GameData.getLastSpawn2() >= 10f) {
@@ -358,6 +386,9 @@ public class GameView implements Screen, InputProcessor {
         if (keycode == Input.Keys.R) {
             GameData.setAutoReload(true);
         }
+        if (keycode==Input.Keys.B){
+            GameData.setPassedTime(GameData.getTime()/2);
+        }
         if (keycode == Input.Keys.T){
             GameData.setPassedTime(GameData.getPassedTime()+60);
         }
@@ -366,6 +397,9 @@ public class GameView implements Screen, InputProcessor {
         }
         if (keycode ==Input.Keys.I){
             player.setXp(player.getLevel()*20+1);
+        }
+        if (keycode==Input.Keys.X){
+            player.setXp(player.getXp()+5);
         }
         if (keycode == Input.Keys.P) {
             GameData.setIsPaused(!GameData.isIsPaused());

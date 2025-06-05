@@ -35,6 +35,7 @@ public class ProfileController {
             }
         }
         player1.setUserName(newName);
+        PlayerStorage.savePlayers(GameData.allPlayers);
         view.showDialog("", "UserName changed successfully", () -> {});
     }
 

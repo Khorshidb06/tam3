@@ -20,7 +20,7 @@ public class Player {
     private float playerHealth ;
     private int kill=0;
     private float lastDamageTime= 0f;
-    //private float
+    private float timeAlive=0;
     private HashMap<String, Integer> abilities=new HashMap<>();
     private CollisionRect rect ;
     private float time = 0;
@@ -217,5 +217,13 @@ public class Player {
 
     public void setAbilities(HashMap<String, Integer> abilities) {
         this.abilities = abilities;
+    }
+
+    public float getTimeAlive() {
+        return timeAlive;
+    }
+
+    public void setTimeAlive(float timeAlive) {
+        this.timeAlive = timeAlive;
     }
 }

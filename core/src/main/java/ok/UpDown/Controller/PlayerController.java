@@ -4,19 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import ok.UpDown.Main;
 import ok.UpDown.Model.*;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import ok.UpDown.View.GameView;
 
 import java.util.Random;
@@ -57,9 +46,15 @@ public class PlayerController {
         player.getRect().setX(player.getPosX());
         player.getRect().setY(player.getPosY());
 
-        handlePlayerLevel();
+        handlePlayerLevel(delta);
 
         player.setLastDamageTime(player.getLastDamageTime() + delta);
+
+        if (player.getLastDamageTime()<1f){
+            Main.getBatch().draw(GameAssetManager.getGameAssetManager().getShield0(), player.getPlayerSprite().getX()-50,
+                player.getPlayerSprite().getY()-50, player.getPlayerSprite().getWidth()*3,
+                player.getPlayerSprite().getHeight()*2);
+        }
 
         if (player.getLastDamageTime() >= 1f) {
             boolean damaged = false;
@@ -98,9 +93,19 @@ public class PlayerController {
 
 
 
-    public void handlePlayerLevel(){
+    public void handlePlayerLevel(float delta){
+        if(player.getSpeedyTime()>0f){
+            player.setSpeedyTime(player.getSpeedyTime()+delta);
+        }if (player.getSpeedyTime()>=10f){
+            player.setSpeedyTime(0f);
+        }
+        if(player.getDamagerTime()>0f){
+            player.setDamagerTime(player.getDamagerTime()+delta);
+        }if (player.getDamagerTime()>=10f){
+            player.setDamagerTime(0f);
+        }
         Random random=new Random();
-        int rand= random.nextInt(3);
+        int rand= random.nextInt(5);
         if (player.getXp()>=player.getLevel()*20){
             player.setLevel(player.getLevel()+1);
             if (GameData.isSfx())Main.getMain().playN();
@@ -121,30 +126,61 @@ public class PlayerController {
                 player.getWeapon().getWeaponTypes().setAmmoMax(player.getWeapon().getWeaponTypes().getAmmoMax()+5);//AⅯOⅭREASE
                 view.showDialog("", "ammocrease ability", ()->{});
             }
-            else if (rand==3);
-            else ;
+            else if (rand==3){
+                player.getAbilities().put("damager", player.getAbilities().get("damager")+1);
+                player.setDamagerTime(delta);
+                view.showDialog("", "damager ability", ()->{});
+            }
+            else {
+                player.getAbilities().put("speedy", player.getAbilities().get("speedy")+1);
+                player.setSpeedyTime(delta);
+                view.showDialog("", "speedy ability", ()->{});
+            };
         }
 
     }
     public void handlePlayerInput(){
+        float speed=player.getSpeed();
+        if(player.getSpeedyTime()>0f)speed*=2;
+        if (GameData.isMoveWSAD()){
+            if (Gdx.input.isKeyPressed(Input.Keys.W)){
+                player.setPosY(player.getPosY() - speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)){
+                player.setPosX(player.getPosX() - speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)){
+                player.setPosY(player.getPosY() + speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)){
+                player.setPosX(player.getPosX() + speed);
+                RunAnimation();
+                player.getPlayerSprite().flip(true, false);
+            }
+        }
+        else {
+            if (Gdx.input.isKeyPressed(Input.Keys.Y)){
+                player.setPosY(player.getPosY() - speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.J)){
+                player.setPosX(player.getPosX() - speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.H)){
+                player.setPosY(player.getPosY() + speed);
+                RunAnimation();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.G)){
+                player.setPosX(player.getPosX() + speed);
+                RunAnimation();
+                player.getPlayerSprite().flip(true, false);
+            }
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)){
-            player.setPosY(player.getPosY() - player.getSpeed());
-            RunAnimation();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)){
-            player.setPosX(player.getPosX() - player.getSpeed());
-            RunAnimation();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)){
-            player.setPosY(player.getPosY() + player.getSpeed());
-            RunAnimation();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)){
-            player.setPosX(player.getPosX() + player.getSpeed());
-            RunAnimation();
-            player.getPlayerSprite().flip(true, false);
-        }
     }
 
 

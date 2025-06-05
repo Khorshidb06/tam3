@@ -24,6 +24,8 @@ public class Player {
     private HashMap<String, Integer> abilities=new HashMap<>();
     private CollisionRect rect ;
     private float time = 0;
+    private float speedyTime=0;
+    private float damagerTime=0;
     private float speed = 5;
     private Weapon weapon;
     private String hero;
@@ -43,6 +45,8 @@ public class Player {
         abilities.put("vitality", 0);
         abilities.put("procrease", 0);
         abilities.put("ammocrease", 0);
+        abilities.put("damager", 0);
+        abilities.put("speedy", 0);
         this.playerHealth=playerHealth;
         this.speed=speed;
         this.securityAns=securityAns;
@@ -225,5 +229,21 @@ public class Player {
 
     public void setTimeAlive(float timeAlive) {
         this.timeAlive = timeAlive;
+    }
+
+    public float getSpeedyTime() {
+        return speedyTime;
+    }
+
+    public void setSpeedyTime(float speedyTime) {
+        this.speedyTime = speedyTime;
+    }
+
+    public float getDamagerTime() {
+        return damagerTime;
+    }
+
+    public void setDamagerTime(float damagerTime) {
+        this.damagerTime = damagerTime;
     }
 }

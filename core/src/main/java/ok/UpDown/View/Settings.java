@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import ok.UpDown.Controller.HintController;
 import ok.UpDown.Controller.SettingController;
 import ok.UpDown.Main;
+import ok.UpDown.Model.GameData;
 
 import javax.swing.event.ChangeEvent;
 
@@ -28,6 +29,7 @@ public class Settings implements Screen {
     public Table table;
     private final TextButton button;
     private final SelectBox<String> chooseMusic;
+    private final SelectBox<String> movement;
     private Skin skin;
 
     public Settings(SettingController controller, Skin skin) {
@@ -39,9 +41,13 @@ public class Settings implements Screen {
         this.reload=new CheckBox("AutoReload", skin);
         this.sfx=new CheckBox("Play sfx", skin);
         this.chooseMusic = new SelectBox<>(skin);
+        this.movement=new SelectBox<>(skin);
         this.button = new TextButton("go back", skin);
         Array<String> menus = new Array<>();
         menus.addAll("Pirates of the Caribbean Metal", "Simulacra", "arthur-vyncke-cherry-metal", "Film");
+        Array<String> move=new Array<>();
+        move.addAll("use W/S/A/D", "use J/H/Y/G");
+        movement.setItems(move);
         chooseMusic.setItems(menus);
         controller.setView(this);
     }
@@ -56,6 +62,8 @@ public class Settings implements Screen {
         table.center();
         table.row().pad(10, 0, 10, 0);
         table.add(chooseMusic).width(600).padBottom(50);
+        table.row().pad(10, 0, 10, 0);
+        table.add(movement).width(600).padBottom(50);
         table.row().pad(10, 0, 10, 0);
         table.add(new Label("Volume", skin));
         table.row().pad(10, 0, 10, 0);
@@ -88,6 +96,15 @@ public class Settings implements Screen {
                 if (selectedMusic != null) {
                     Main.getMain().changeMusic(selectedMusic);
                 }
+            }
+        });
+
+        movement.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (movement.getSelected().equals("use J/H/Y/G")) {
+                    GameData.setMoveWSAD(false);
+                }else GameData.setMoveWSAD(true);
             }
         });
 

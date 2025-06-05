@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import ok.UpDown.Controller.HintController;
 import com.badlogic.gdx.utils.ScreenUtils;
+import ok.UpDown.Model.GameData;
 
 public class HintMenu implements Screen {
     private final HintController controller;
@@ -56,7 +57,8 @@ public class HintMenu implements Screen {
         Table controlTable = new Table();
         controlTable.top();
         controlTable.add(new Label("Controls", skin, "default")).padBottom(10).row();
-        controlTable.add(new Label("- W/A/S/D: Move", skin)).left().row();
+        if (GameData.isMoveWSAD())controlTable.add(new Label("- W/A/S/D: Move", skin)).left().row();
+        else controlTable.add(new Label("- J/H/Y/G: Move", skin)).left().row();
         controlTable.add(new Label("- Mouse: Aim", skin)).left().row();
         controlTable.add(new Label("- Left click: Shoot", skin)).left().row();
         controlTable.add(new Label("- P: Pause", skin)).left().row();

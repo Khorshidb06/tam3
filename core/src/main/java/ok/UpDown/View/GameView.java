@@ -215,6 +215,8 @@ public class GameView implements Screen, InputProcessor {
             ability1.setText("Vitality: " + player.getAbilities().get("vitality"));
             ability2.setText("Procrese: " + player.getAbilities().get("procrease"));
             ability3.setText("Ammocrease: " + player.getAbilities().get("ammocrease"));
+            ability4.setText("Damager: " + player.getAbilities().get("damager"));
+            ability5.setText("Speedy: " + player.getAbilities().get("speedy"));
 
             ScreenUtils.clear(0, 0, 0, 1);
             pauseStage.act(delta);

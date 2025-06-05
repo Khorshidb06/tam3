@@ -80,6 +80,12 @@ public class GameAssetManager {
     private final Animation<Texture> char4Run = new Animation<>(0.2f, char4_run0, char4_run1, char4_run2, char4_run3);
     private final Animation<Texture> char5Run = new Animation<>(0.2f, char5_run0, char5_run1, char5_run2, char5_run3);
 
+    private final Texture shield0=new Texture("Images_grouped_1/Sprite/HolyShield/HolyShield_0.png");
+    private final Texture shield1=new Texture("Images_grouped_1/Sprite/HolyShield/HolyShield_1.png");
+    private final Texture shield2=new Texture("Images_grouped_1/Sprite/HolyShield/HolyShield_2.png");
+    private final Texture shield3=new Texture("Images_grouped_1/Sprite/HolyShield/HolyShield_3.png");
+    private final Animation<Texture> shield=new Animation<>(0.1f, shield0,shield1,shield2,shield3);
+
 
     private final Texture Tree_Monster0 = new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_0.png");
     private final Texture Tree_Monster1 = new Texture("Images_grouped_1/Sprite/T/T_TreeMonster_1.png");
@@ -287,5 +293,13 @@ public class GameAssetManager {
 
     public Animation<Texture> getChar5Run() {
         return char5Run;
+    }
+
+    public Animation<Texture> getShield() {
+        return shield;
+    }
+
+    public Texture getShield0() {
+        return shield0;
     }
 }

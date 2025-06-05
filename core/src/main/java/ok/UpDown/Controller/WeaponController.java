@@ -94,9 +94,11 @@ public class WeaponController {
     public boolean checkCollisions(Bullet b){
         boolean a=false;
         boolean c=false;
+        int damage=weapon.getWeaponTypes().getDamage();
+        if (player.getDamagerTime()>0f)damage*=2;
         for (Enemy enemy :enemyController.getEnemies()){
             if (enemy.getRect().collidesWith(b.getRect())) {
-                enemy.setEnemyHealth(enemy.getEnemyHealth()-weapon.getWeaponTypes().getDamage());
+                enemy.setEnemyHealth(enemy.getEnemyHealth()-damage);
                 view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getHit()));
                 a=true;
             }
@@ -104,7 +106,7 @@ public class WeaponController {
         if (!a){
             for (Enemy enemy :enemyController.getEyeBats()){
                 if (enemy.getRect().collidesWith(b.getRect())) {
-                    enemy.setEnemyHealth(enemy.getEnemyHealth()-weapon.getWeaponTypes().getDamage());
+                    enemy.setEnemyHealth(enemy.getEnemyHealth()-damage);
                     view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getHit()));
                     c=true;
                 }

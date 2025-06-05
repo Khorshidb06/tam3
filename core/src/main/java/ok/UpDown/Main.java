@@ -3,6 +3,7 @@ package ok.UpDown;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ok.UpDown.Controller.SignupController;
 import ok.UpDown.Model.GameAssetManager;
@@ -22,6 +23,9 @@ public class Main extends Game {
         main = this;
         GameData.allPlayers=PlayerStorage.loadPlayers();
         batch = new SpriteBatch();
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("Images_grouped_1/Sprite/T/T_Cursor.png"));
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pixmap, 0, 0));
+        pixmap.dispose();
         backgroundMusic=Gdx.audio.newMusic(Gdx.files.internal("music/Pirates of the Caribbean Metal.mp3"));
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(volume);

@@ -60,7 +60,7 @@ public class MainMenu implements Screen {
         avatarImage.setSize(64, 64);
 
         Label nameLabel = new Label("Name: " + player.getUserName(), skin);
-        Label scoreLabel = new Label("Score: " + player.getXp(), skin);
+        Label scoreLabel = new Label("Score: " + player.getKill()* player.getTimeAlive()/60, skin);
 
         Table infoTable = new Table();
         infoTable.add(nameLabel).left().row();

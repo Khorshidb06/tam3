@@ -37,8 +37,14 @@ public class PlayerController {
     }
 
     public void update() {
+
         float delta = Gdx.graphics.getDeltaTime();
 
+        Main.getBatch().setColor(1f, 1f, 1f, 0.5f);
+        Main.getBatch().draw(GameAssetManager.getGameAssetManager().getGlowTexture(), player.getPlayerSprite().getX()-100,
+            player.getPlayerSprite().getY()-70, player.getPlayerSprite().getWidth()*5,
+            player.getPlayerSprite().getHeight()*3);
+        Main.getBatch().setColor(1f, 1f, 1f, 1f);
         player.getPlayerSprite().draw(Main.getBatch());
 
         if (player.isPlayerIdle()) {

@@ -81,6 +81,7 @@ public class SignupController {
         }
         String username = view.getUserName().getText().trim();
         String password = view.getPassword().getText();
+        String ans=view.getSecurityAns().getText();
         Player person=null;
         for (Player player : GameData.allPlayers) {
             if (player.getUserName().equals(username)) {
@@ -91,10 +92,13 @@ public class SignupController {
             view.showDialog("", "Username doesn't exist.", () -> {});
             return;
         }
-
+        else if (person.getSecurityAns().equals(ans) && !person.getPassword().equals(password)){
+            view.showDialog("", "your password is: "+person.getPassword(), ()->{});
+            return;
+        }
         else if(!person.getPassword().equals(password)){
-            view.showDialog("", "Wrong password. ", ()->{});
-            //TODO: add setNewPassword page and answer secQuest
+            view.showDialog("", "Wrong password. answer below question to me. then I will show you the password:" + person.getSecurityQuest(), ()->{});
+
             return;
         }
 

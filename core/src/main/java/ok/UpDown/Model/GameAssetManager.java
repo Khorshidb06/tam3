@@ -79,9 +79,21 @@ public class GameAssetManager {
     private final Texture scarlettPortrait=new Texture("Images_grouped_1/Sprite/T/T_Scarlett_Portrait.png");
     private final Texture shanaPortrait=new Texture("Images_grouped_1/Sprite/T/T_Shana_Portrait.png");
 
+    private final Texture explosion0=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_0.png");
+    private final Texture explosion1=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_1.png");
+    private final Texture explosion2=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_2.png");
+    private final Texture explosion3=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_3.png");
+    private final Texture explosion4=new Texture("Images_grouped_1/Sprite/T/T_FireExplosionSmall_4.png");
+    private final Animation<Texture> explosion=new Animation<>(0.2f, explosion0, explosion1,explosion2,explosion3,explosion4);
 
+    private final Texture hit0=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_0.png");
+    private final Texture hit1=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_1.png");
+    private final Texture hit2=new Texture("Images_grouped_1/Sprite/T/T_HitMarkerFX_2.png");
+    private final Animation<Texture> hit=new Animation<>(0.2f, hit0,hit1, hit2);
 
     private final Texture seed=new Texture("Images_grouped_1/Sprite/T/T_DevilDealPickup.png");
+
+    Texture glowTexture=new Texture("Images_grouped_1/Sprite/kindpng_7434455.png");
 
     private final String smg = "smg/SMGStill.png";
     private final Texture smgTexture = new Texture(smg);
@@ -196,7 +208,19 @@ public class GameAssetManager {
         return character4_idle_frames;
     }
 
+    public Animation<Texture> getExplosion() {
+        return explosion;
+    }
+
+    public Animation<Texture> getHit() {
+        return hit;
+    }
+
     public Animation<Texture> getCharacter5_idle_frames() {
         return character5_idle_frames;
+    }
+
+    public Texture getGlowTexture() {
+        return glowTexture;
     }
 }

@@ -4,11 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -44,10 +40,11 @@ public class Profile implements Screen {
         Gdx.input.setInputProcessor(stage);
         table.setFillParent(true);
         table.center();
+        table.add(new Label("Profile Menu", skin, "title")).row();
         table.add(password).width(500).padBottom(20).row();
-        table.add(chanePassword).row();
+        table.add(chanePassword).width(200).row();
         table.add(userName).width(500).padBottom(20).row();
-        table.add(chaneUser).row();
+        table.add(chaneUser).width(200).row();
 
         chanePassword.addListener(new ClickListener() {
             @Override

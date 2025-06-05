@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import ok.UpDown.Main;
 import ok.UpDown.Model.*;
+import ok.UpDown.View.GameView;
 
 import java.util.Iterator;
 
@@ -14,16 +15,17 @@ import java.util.ArrayList;
 
 public class EnemyController {
     private PlayerController playerController;
-
+    private GameView view;
     private ArrayList<Tree> trees;
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> eyeBats;
 
-    public EnemyController(ArrayList<Tree> trees, PlayerController playerController, ArrayList<Enemy> enemies, ArrayList<Enemy> eyeBats) {
+    public EnemyController(ArrayList<Tree> trees, PlayerController playerController, ArrayList<Enemy> enemies, ArrayList<Enemy> eyeBats, GameView view) {
         this.eyeBats = eyeBats;
         this.enemies = enemies;
         this.trees = trees;
         this.playerController = playerController;
+        this.view=view;
     }
 
     public void updateEnemies(float delta) {
@@ -61,6 +63,8 @@ public class EnemyController {
 
             if (enemy.getEnemyHealth() <= 0) {
                 GameData.getAllSeeds().add(new Seed(enemy.getPosX(), enemy.getPosY()));
+                view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getExplosion()));
+
                 iterator1.remove();
                 continue;
             }
@@ -92,6 +96,7 @@ public class EnemyController {
             if (enemy.getEnemyHealth() <= 0) {
                 GameData.getAllSeeds().add(new Seed(enemy.getPosX(), enemy.getPosY()));
                 iterator.remove();
+                view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getExplosion()));
                 continue;
             }
             enemy.getSprite().draw(Main.getBatch());

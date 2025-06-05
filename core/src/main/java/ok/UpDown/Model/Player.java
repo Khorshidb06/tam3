@@ -29,7 +29,6 @@ public class Player {
     private String hero;
     private int xp=0;
     private int level=1;
-    private SettingsManager settingsManager;
 
     public float getSpeed() {
         return speed;
@@ -135,9 +134,6 @@ public class Player {
         return userName;
     }
 
-    public SettingsManager getSettingsManager() {
-        return settingsManager;
-    }
 
     public void setHero(String hero) {
         this.hero = hero;

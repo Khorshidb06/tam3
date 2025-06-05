@@ -33,7 +33,7 @@ public class SignUpMenu implements Screen {
         this.skin = skin;
         this.selectQuest = new SelectBox<>(skin);
         this.controller = controller;
-        this.title = new Label("Welcome to 20 Minutes Until Down!", skin);
+        this.title = new Label("20 Minutes Until Down!", skin,"title");
         this.userName = new TextField("", skin);
         this.securityAns = new TextField("", skin);
         this.password = new TextField("", skin);

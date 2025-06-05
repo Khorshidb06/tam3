@@ -30,7 +30,7 @@ public class Settings implements Screen {
 
     public Settings(SettingController controller, Skin skin) {
         this.controller = controller;
-        this.menuTitle = new Label("Setting Menu", skin);
+        this.menuTitle = new Label("Setting Menu", skin,"title");
         volumeSlider = new Slider(0f, 1f, 0.01f, false, skin);
         volumeSlider.setValue(Main.getMain().getVolume());
         this.skin=skin;

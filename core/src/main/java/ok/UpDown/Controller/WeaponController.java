@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import ok.UpDown.Main;
 import ok.UpDown.Model.*;
+import ok.UpDown.View.GameView;
 
 import javax.swing.table.TableCellRenderer;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class WeaponController {
     private Weapon weapon;
     Player player=GameData.getLoggedInPlayer();
     private ArrayList<Bullet> bullets = new ArrayList<>();
-    private float delta;
+    private final GameView view;
 
-    public WeaponController(Weapon weapon, PlayerController playerController, EnemyController enemyController){
+    public WeaponController(Weapon weapon, PlayerController playerController, EnemyController enemyController, GameView view){
         this.weapon = weapon;
-        this.delta=delta;
         this.playerController=playerController;
         this.enemyController=enemyController;
+        this.view = view;
     }
 
     public void update(){
@@ -95,6 +96,7 @@ public class WeaponController {
         for (Enemy enemy :enemyController.getEnemies()){
             if (enemy.getRect().collidesWith(b.getRect())) {
                 enemy.setEnemyHealth(enemy.getEnemyHealth()-weapon.getWeaponTypes().getDamage());
+                view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getHit()));
                 a=true;
             }
         }
@@ -102,6 +104,7 @@ public class WeaponController {
             for (Enemy enemy :enemyController.getEyeBats()){
                 if (enemy.getRect().collidesWith(b.getRect())) {
                     enemy.setEnemyHealth(enemy.getEnemyHealth()-weapon.getWeaponTypes().getDamage());
+                    view.hitEffects.add(new HitEffect(enemy.getPosX(), enemy.getPosY(), GameAssetManager.getGameAssetManager().getHit()));
                     c=true;
                 }
             }

@@ -1,6 +1,7 @@
 package ok.UpDown.View;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -14,6 +15,7 @@ import ok.UpDown.Main;
 import ok.UpDown.Model.*;
 import ok.UpDown.Model.Tree;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameView implements Screen, InputProcessor {
@@ -22,20 +24,26 @@ public class GameView implements Screen, InputProcessor {
     private Player player = GameData.getLoggedInPlayer();
     private Skin skin;
     private Stage pauseStage = new Stage(new ScreenViewport());
-    private Stage endStage=new Stage(new ScreenViewport());
+    private Stage endStage = new Stage(new ScreenViewport());
     private Label endMode;
 
     private Label ammoLabel;
     private Label healthLabel;
     private Label timeLabel;
     private Label killLabel;
+    private Label timeLabelG;
+    private Label killLabelG;
     private Label levelLabel;
     private Label xpLabel;
     private Label nameLabel;
     private Label scoreLabel;
+    private Label scoreLabelG;
     private Label ability1;
     private Label ability2;
     private Label ability3;
+    public ArrayList<HitEffect> hitEffects = new ArrayList<>();
+    ProgressBar progressBar;
+
 
 
     public GameView(GameController controller, Skin skin) {
@@ -50,19 +58,19 @@ public class GameView implements Screen, InputProcessor {
         pauseTable.setFillParent(true);
         pauseTable.center();
 
-        Label pauseLabel = new Label("Game Paused", skin);
+        Label pauseLabel = new Label("Game Paused", skin, "title");
         TextButton resumeButton = new TextButton("Resume", skin);
         TextButton quitButton = new TextButton("Quit", skin);
 
-        nameLabel=new Label(player.getUserName(), skin);
+        nameLabel = new Label(player.getUserName(), skin);
         ability1 = new Label("Vitality: " + player.getAbilities().get("vitality"), skin);
         ability2 = new Label("Procrese: " + player.getAbilities().get("procrease"), skin);
         ability3 = new Label("Ammocrease: " + player.getAbilities().get("ammocrease"), skin);
 
+        pauseTable.add(pauseLabel).pad(10).row();
         pauseTable.add(ability1).pad(10).row();
         pauseTable.add(ability2).pad(10).row();
         pauseTable.add(ability3).pad(10).row();
-        pauseTable.add(pauseLabel).pad(10);
         pauseTable.row();
         pauseTable.add(resumeButton).pad(10).width(200);
         pauseTable.row();
@@ -83,7 +91,7 @@ public class GameView implements Screen, InputProcessor {
             public void clicked(InputEvent event, float x, float y) {
                 PlayerStorage.savePlayers(GameData.allPlayers);
                 GameData.setIsFinished(true);
-                endMode=new Label("Dead", skin);
+                endMode = new Label("Dead", skin);
 
             }
         });
@@ -95,15 +103,15 @@ public class GameView implements Screen, InputProcessor {
         endTable.setFillParent(true);
         endTable.center();
 
-        Label endLabel = new Label("Game Ended", skin);
+        Label endLabel = new Label("Game Ended", skin, "title");
         TextButton backButton = new TextButton("Go to main", skin);
-
+        endTable.add(endLabel).pad(10).row();
         endTable.add(nameLabel).pad(10).row();
         endTable.add(killLabel).pad(10).row();
         endTable.add(timeLabel).pad(10).row();
         endTable.add(scoreLabel).pad(10).row();
         endTable.add(endMode).pad(10).row();
-        endTable.add(endLabel).pad(10);
+
         endTable.row();
         endTable.add(backButton).pad(10).width(300);
 
@@ -112,7 +120,7 @@ public class GameView implements Screen, InputProcessor {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameData.setIsPaused(false);
+                GameData.setIsFinished(false);
                 PlayerStorage.savePlayers(GameData.allPlayers);
                 Main.getMain().dispose();
                 Main.getMain().setScreen(new MainMenu(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
@@ -127,11 +135,15 @@ public class GameView implements Screen, InputProcessor {
     public void show() {
 
         stage = new Stage(new ScreenViewport());
+
+        progressBar = new ProgressBar(0f, 1f, 0.01f, false, skin);
+        progressBar.setValue((float) player.getXp() / player.getLevel()*20);
+        progressBar.setSize(200, 20);
+
         Table table = new Table();
         table.top().left();
         table.setFillParent(true);
         createPauseMenu();
-        createEndMenu();
 
         ammoLabel = new Label("Ammo: 0", skin);
         healthLabel = new Label("Health: 100", skin);
@@ -139,15 +151,26 @@ public class GameView implements Screen, InputProcessor {
         killLabel = new Label("Kill: 0", skin);
         levelLabel = new Label("", skin);
         xpLabel = new Label("", skin);
-        scoreLabel=new Label("",skin);
+        scoreLabel = new Label("", skin);
+        endMode=new Label("",skin);
+        timeLabelG=new Label("", skin);
+        killLabelG=new Label("",skin);
+        scoreLabelG=new Label("", skin);
 
+        table.add(timeLabelG).pad(10);
+        table.add(killLabelG).pad(10);
+        table.add(scoreLabelG).pad(10);
+        table.add(progressBar).pad(10).row();
+
+        table.add(timeLabel).pad(10);
+        table.add(killLabel).pad(10);
+        table.add(scoreLabel).pad(10).row();
         table.add(ammoLabel).pad(10);
         table.add(healthLabel).pad(10);
-        table.add(timeLabel).pad(10).row();
-        table.add(killLabel).pad(10);
         table.add(levelLabel).pad(10);
         table.add(xpLabel).pad(10);
-        table.add(scoreLabel).pad(10);
+        createEndMenu();
+
 
         stage.addActor(table);
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -165,6 +188,7 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
 
+        progressBar.setValue((float) (player.getXp()*100) / (player.getLevel()*20)/100);
         if (GameData.isIsPaused()) {
             ability1.setText("Vitality: " + player.getAbilities().get("vitality"));
             ability2.setText("Procrese: " + player.getAbilities().get("procrease"));
@@ -178,13 +202,22 @@ public class GameView implements Screen, InputProcessor {
         ammoLabel.setText("Ammo: " + player.getWeapon().getAmmo());
         healthLabel.setText("Health: " + player.getPlayerHealth());
         player.setTimeAlive(GameData.getPassedTime());
-        timeLabel.setText("Time: " + (int) (GameData.getTime()-player.getTimeAlive()));
+        timeLabel.setText("Time: " + (int) (GameData.getTime() - player.getTimeAlive()));
         killLabel.setText("Kill: " + player.getKill());
+        timeLabelG.setText("Time: " + (int) (GameData.getTime() - player.getTimeAlive()));
+        killLabelG.setText("Kill: " + player.getKill());
         levelLabel.setText("Level: " + player.getLevel());
         xpLabel.setText("XP: " + player.getXp());
-        scoreLabel.setText("Score: "+GameData.getPassedTime()*player.getKill()/60);
+        scoreLabel.setText("Score: " + GameData.getPassedTime() * player.getKill() / 60);
+        scoreLabelG.setText("Score: " + String.format("%.1f", GameData.getPassedTime() * player.getKill() / 60f));
+
 
         if (GameData.isIsFinished()) {
+            nameLabel.setText(player.getUserName());
+            killLabel.setText("Kill: " + player.getKill());
+            timeLabel.setText("Time: " + (int)player.getTimeAlive());
+            scoreLabel.setText("Score: " + String.format("%.1f", GameData.getPassedTime() * player.getKill() / 60f));
+
             Gdx.input.setInputProcessor(endStage);
             ScreenUtils.clear(0, 0, 0, 1);
             endStage.act(delta);
@@ -192,18 +225,20 @@ public class GameView implements Screen, InputProcessor {
             return;
         }
 
+
         GameData.setLastSpawn(GameData.getLastSpawn() + delta);
         GameData.setLastSpawn2(GameData.getLastSpawn2() + delta);
 
         GameData.setPassedTime(GameData.getPassedTime() + delta);
         if (GameData.getPassedTime() >= GameData.getTime()) {
             GameData.setIsFinished(true);
-            endMode=new Label("You won the Game!", skin);
+            endMode.setText("You won the Game!");
         }
-        if (player.getPlayerHealth()<=0){
+        if (player.getPlayerHealth() <= 0) {
             GameData.setIsFinished(true);
-            endMode=new Label("Dead", skin);
+            endMode.setText("Dead");
         }
+
         Random random = new Random();
 
         if (player.getWeapon().getAmmo() <= 0 && GameData.isAutoReload()) {
@@ -238,8 +273,13 @@ public class GameView implements Screen, InputProcessor {
 
         Main.getBatch().begin();
 
-
         controller.updateGame(delta);
+        for (HitEffect effect : hitEffects) {
+            effect.update(delta);
+            effect.draw(Main.getBatch());
+        }
+        hitEffects.removeIf(HitEffect::isFinished);
+
         Main.getBatch().end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -315,8 +355,17 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode ==Input.Keys.R){
+        if (keycode == Input.Keys.R) {
             GameData.setAutoReload(true);
+        }
+        if (keycode == Input.Keys.T){
+            GameData.setPassedTime(GameData.getPassedTime()+60);
+        }
+        if (keycode == Input.Keys.L){
+            player.setPlayerHealth(player.getPlayerHealth()+1);
+        }
+        if (keycode ==Input.Keys.I){
+            player.setXp(player.getLevel()*20+1);
         }
         if (keycode == Input.Keys.P) {
             GameData.setIsPaused(!GameData.isIsPaused());

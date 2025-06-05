@@ -18,8 +18,8 @@ public class GameController {
         this.view = view;
         playerController = new PlayerController(enemyController);
         worldController = new WorldController(playerController);
-        enemyController=new EnemyController(GameData.getAllEnemies(),playerController, GameData.getAllTentacles(), GameData.getAllEyeBat());
-        weaponController = new WeaponController(playerController.getPlayer().getWeapon(), playerController, enemyController);
+        enemyController=new EnemyController(GameData.getAllEnemies(),playerController, GameData.getAllTentacles(), GameData.getAllEyeBat(),view);
+        weaponController = new WeaponController(playerController.getPlayer().getWeapon(), playerController, enemyController, view);
     }
 
     public void updateGame(float delta) {
